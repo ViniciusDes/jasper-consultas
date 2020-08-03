@@ -49,7 +49,7 @@ FROM SRA$P!{CODIGO_EMPRESA} SRA
     AND TIPO_RESCISAO.D_E_L_E_T_ = ''
 WHERE SRA.D_E_L_E_T_ = ''
   AND LEFT(RA_DEMISSA,
-           6) >= '$P!{ANO}$P!{MES}'
+           6) = '$P!{ANO}$P!{MES}'
   AND RA_FILIAL = '$P!{CODIGO_FILIAL}'
 ORDER BY RA_FILIAL,
          RA_NOME
