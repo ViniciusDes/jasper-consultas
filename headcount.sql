@@ -3,13 +3,14 @@ SELECT RA_FILIAL                                                         CODIGO_
        RA_MAT                                                            MATRICULA,
        RA_NOME                                                           NOME,
        dbo.stod(RA_ADMISSA)                                              ADMISSAO,
-       IIF(RA_DEMISSA = '', '', dbo.stod(RA_DEMISSA))                    DESLIGAMENTO,
-       IIF(TIPO_RESCISAO.X5_DESCRI IS NULL, '', TIPO_RESCISAO.X5_DESCRI) TIPO_RESCISAO,
+       IIF(RA_DEMISSA = '', '', dbo.stod(RA_DEMISSA))                    DEMISSAO,
+       RA_RESCRAI                                                        CODIGO_TIPO_DEMISSAO,
+       IIF(TIPO_RESCISAO.X5_DESCRI IS NULL, '', TIPO_RESCISAO.X5_DESCRI) TIPO_DEMISSAO,
        dbo.calculaidade(RA_ADMISSA)                                      TEMPO_DE_EMPRESA,
        IIF(RA_NASC = '', '', dbo.stod(RA_NASC))                          NASCIMENTO,
        dbo.calculaidade(RA_NASC)                                         IDADE,
-       RA_SITFOLH                                                        SITUACAO,
        RA_SEXO                                                           SEXO,
+       RA_SITFOLH                                                        SITUACAO,
        IIF(R8_TIPOAFA IS NULL, '', R8_TIPOAFA)                           CODIGO_TIPO_AFASTAMENTO,
        IIF(RCM_DESCRI IS NULL, '', RCM_DESCRI)                           TIPO_AFASTAMENTO,
        CASE RA_RACACOR
@@ -75,7 +76,7 @@ FROM SRA$P!{CODIGO_EMPRESA} SRA
 WHERE SRA.D_E_L_E_T_ = ''
   AND (RA_DEMISSA = ''
     OR LEFT(RA_DEMISSA
-           , 6) = '$P!{ANO}$P!{MES}')
+           , 6) >= '$P!{ANO}$P!{MES}')
   AND RA_PROCES = '00001'
-  AND RA_FILIAL = ''$P!{CODIGO_FILIAL}''
+  AND RA_FILIAL = '$P!{CODIGO_FILIAL}'
 ORDER BY RA_NOME
