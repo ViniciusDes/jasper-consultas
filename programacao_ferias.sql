@@ -62,6 +62,7 @@ AND RCH.D_E_L_E_T_<>'*'
 WHERE SRF.D_E_L_E_T_ = ''
   AND RF_STATUS = '1'
     AND RA_FILIAL = '$P!{CODIGO_FILIAL}'
+    AND RA_DEMISSA = ''
 ORDER BY FILIAL,
          MATRICULA,
          NOME,
