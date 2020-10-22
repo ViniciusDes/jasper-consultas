@@ -120,7 +120,7 @@ FROM (SELECT RF_FILIAL                                                          
       WHERE SRF.D_E_L_E_T_ = ''
         AND RF_STATUS = '1'
         AND RF_DFERVAT = 0
-        AND RF_FILIAL = '$P!{CODIGO_FILIAL}'
+        AND RF_FILIAL LIKE (IIF( 1>'$P!{CONSOLIDADO}', '$P!{CODIGO_FILIAL}', '%%'));
         AND RF_FILIAL + RF_MAT + RF_DATABAS NOT IN
             (SELECT RH_FILIAL + RH_MAT + RH_DATABAS FROM SRH$P!{CODIGO_EMPRESA} WHERE D_E_L_E_T_ <> '*')
      ) X
